@@ -1,0 +1,19 @@
+{
+  "name": "Ask Policy Question Endpoint - Input Validation Error",
+  "description": "Ensures that the /ask endpoint returns a validation error when the input is missing required fields or contains invalid data.",
+  "test_type": "functional",
+  "input": "POST /ask with an invalid UserQuery JSON (e.g., missing user_id or query, or query exceeds 50,000 characters).",
+  "output": "A JSON response with success=false, error_code='INVALID_INPUT', and error_type='ValidationError'.",
+  "success_criteria": [
+    "HTTP status code is 422",
+    "response.success is False",
+    "response.error_code is 'INVALID_INPUT'",
+    "response.error_type is 'ValidationError'",
+    "response.fixing_tips is not None"
+  ],
+  "error_scenarios": [
+    "Malformed JSON",
+    "Missing required fields",
+    "Excessive query length"
+  ]
+}
