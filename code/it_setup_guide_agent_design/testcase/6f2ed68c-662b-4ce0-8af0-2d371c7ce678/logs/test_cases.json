@@ -1,0 +1,11 @@
+[
+  {
+    "id": "test_1",
+    "name": "Start Onboarding - Functional Happy Path",
+    "description": "Test: Start Onboarding - Functional Happy Path",
+    "type": "functional",
+    "status": "failed",
+    "duration": 0.0,
+    "error": "client = <starlette.testclient.TestClient object at 0x7f98b5c0ebd0>\nvalid_user_context = {'department': 'Engineering', 'employee_id': 'EMP12345', 'operating_system': 'Windows', 'role': 'Software Engineer'}\n\n    def test_start_onboarding_functional_happy_path(client, valid_user_context):\n        \"\"\"\n        Functional test: Validates that the /start endpoint successfully initiates an onboarding session\n        and returns the first onboarding step.\n        \"\"\"\n        # Patch any external dependencies (e.g., LLM, DB, etc.) used in the onboarding logic.\n        # Here, we patch the function that generates the onboarding step.\n        # Adjust the patch target to your actual implementation.\n        with patch(\"app.routers.onboarding.generate_first_step\", side_effect=mock_step_response):\n            response = client.post(\"/start\", json=valid_user_context)\n            assert response.status_code == 200, \"Expected HTTP 200 for valid onboarding start\"\n            data = response.json()\n            # Validate response structure\n            assert isinstance(data, dict), \"Response should be a JSON object\"\n>           assert \"step\" in data and isinstance(data[\"step\"], str) and data[\"step\"], \"step field must be a non-empty string\"\nE           AssertionError: step field must be a non-empty string\nE           assert ('step' in {'department': 'Engineering', 'employee_id': 'EMP12345', 'operating_system': 'Windows', 'role': 'Software Engineer', ...})\n\ntest_agent.py:60: AssertionError"
+  }
+]
