@@ -1,0 +1,16 @@
+{
+  "name": "End-to-End Onboarding Flow - Integration",
+  "description": "Simulates a full onboarding session: start, complete all steps, and receive completion certificate.",
+  "test_type": "integration",
+  "input": "Sequence of API calls: /start with valid UserContext, then /step with 'YES' for 5 steps.",
+  "output": "StepResponse for each step, CompletionResponse at the end.",
+  "success_criteria": [
+    "Each /step call returns StepResponse until the last step",
+    "Final /step call returns CompletionResponse with success message",
+    "Session is marked as completed"
+  ],
+  "error_scenarios": [
+    "ErrorResponse if session is lost mid-way",
+    "ErrorResponse if invalid input is provided at any step"
+  ]
+}
