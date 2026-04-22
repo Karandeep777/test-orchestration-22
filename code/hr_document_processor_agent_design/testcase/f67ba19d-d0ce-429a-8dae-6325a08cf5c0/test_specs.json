@@ -1,0 +1,17 @@
+{
+  "name": "Integration - Batch Upload by HR Manager",
+  "description": "Tests that an HR manager can upload a batch of documents and receive a BatchResponse with individual UploadResponses for each document.",
+  "test_type": "integration",
+  "input": "A BatchUploadRequest with user_role='hr_manager' and a list of two valid UploadRequest objects with valid document_text.",
+  "output": "A JSON BatchResponse with success=True, results containing two UploadResponses with success=True.",
+  "success_criteria": [
+    "HTTP status code is 200",
+    "response.success is True",
+    "len(response.results) == 2",
+    "all(r.success for r in response.results)"
+  ],
+  "error_scenarios": [
+    "One or more documents fail processing",
+    "Role is not authorized for batch processing"
+  ]
+}
