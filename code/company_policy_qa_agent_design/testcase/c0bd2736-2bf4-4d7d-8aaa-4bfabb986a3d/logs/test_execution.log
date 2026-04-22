@@ -1,0 +1,40 @@
+=== PYTEST EXECUTION LOG ===
+
+Exit Code: 1
+
+STDOUT:
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /tmp/aba_venv_cache/venv_40a7d3f7afe98ea2ea9e84b975cfcc18/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.15', 'Platform': 'Linux-5.15.0-1102-azure-x86_64-with-glibc2.41', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'langsmith': '0.7.32', 'Faker': '37.12.0', 'asyncio': '1.3.0', 'anyio': '4.13.0', 'mock': '3.15.1', 'json-report': '1.5.0', 'metadata': '3.1.1'}}
+rootdir: /tmp/test_venv_exec_x3foq7pw
+configfile: pytest.ini
+plugins: langsmith-0.7.32, Faker-37.12.0, asyncio-1.3.0, anyio-4.13.0, mock-3.15.1, json-report-1.5.0, metadata-3.1.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+test_agent.py::test_ask_policy_question_endpoint_success FAILED          [100%]
+
+=================================== FAILURES ===================================
+__________________ test_ask_policy_question_endpoint_success ___________________
+
+client = <starlette.testclient.TestClient object at 0x7f6a77bed850>
+valid_user_query = {'query': 'What is the vacation policy for new employees?', 'user_id': 'user123'}
+
+    def test_ask_policy_question_endpoint_success(client, valid_user_query):
+        """
+        Functional test: Validates that the /ask endpoint returns a successful response
+        with a valid answer when provided with a well-formed user query.
+        """
+>       with patch_all_success() as (mock_llm, mock_search, mock_redis):
+E       TypeError: 'tuple' object does not support the context manager protocol
+
+test_agent.py:78: TypeError
+--------------------------------- JSON report ----------------------------------
+report saved to: /tmp/test_venv_exec_x3foq7pw/pytest_report.json
+=========================== short test summary info ============================
+FAILED test_agent.py::test_ask_policy_question_endpoint_success - TypeError: ...
+============================== 1 failed in 0.30s ===============================
+
+
+STDERR:
