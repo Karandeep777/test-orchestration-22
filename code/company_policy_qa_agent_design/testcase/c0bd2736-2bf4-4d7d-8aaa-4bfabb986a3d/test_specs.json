@@ -1,0 +1,19 @@
+{
+  "name": "Ask Policy Question Endpoint - Success",
+  "description": "Validates that the /ask endpoint returns a successful response with a valid answer when provided with a well-formed user query.",
+  "test_type": "functional",
+  "input": "POST /ask with a valid UserQuery JSON (user_id and query present, query is a typical HR question).",
+  "output": "A FormattedResponse JSON with success=true, answer, and citation fields populated.",
+  "success_criteria": [
+    "HTTP status code is 200",
+    "response.success is True",
+    "response.answer is a non-empty string",
+    "response.cited_source, response.cited_section, and response.cited_last_updated are present or None",
+    "response.error_code is None"
+  ],
+  "error_scenarios": [
+    "OpenAI API failure",
+    "Azure Search API failure",
+    "Redis unavailable"
+  ]
+}
