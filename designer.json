@@ -1,0 +1,81 @@
+{
+  "nodes": [
+    {
+      "id": "node-1776323132803",
+      "type": "agent",
+      "data": {
+        "label": "HR Document Processor Agent Design",
+        "agentId": "8c418a33-56e3-4e87-bbe2-a825fd44286f",
+        "agentName": "HR Document Processor Agent Design",
+        "config": {}
+      },
+      "position": {
+        "x": -200.60973021385757,
+        "y": 444.8086085261424
+      }
+    },
+    {
+      "id": "node-1776323152483",
+      "type": "agent",
+      "data": {
+        "label": "IT Setup Guide Agent Design",
+        "agentId": "19334178-5449-4f85-a11f-df0c5d9c605f",
+        "agentName": "IT Setup Guide Agent Design",
+        "config": {}
+      },
+      "position": {
+        "x": 287.01374989333885,
+        "y": 446.2287831577891
+      }
+    },
+    {
+      "id": "node-1776323181755",
+      "type": "agent",
+      "data": {
+        "label": "Company Policy Q&A Agent Design",
+        "agentId": "335c3b3c-7b4b-4e02-bd4f-92ce5f79b1c9",
+        "agentName": "Company Policy Q&A Agent Design",
+        "config": {}
+      },
+      "position": {
+        "x": 690.0866271328326,
+        "y": 454.4598490141335
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-node-1776323132803-node-1776323152483-1776323202722",
+      "source": "node-1776323132803",
+      "target": "node-1776323152483",
+      "sourceHandle": "bottom-source",
+      "targetHandle": "left-target",
+      "type": "straight",
+      "data": {
+        "edgeStyle": "solid",
+        "lineType": "straight",
+        "sourceHandlePosition": "bottom",
+        "targetHandlePosition": "left"
+      }
+    },
+    {
+      "id": "edge-node-1776323152483-node-1776323181755-1776323224171",
+      "source": "node-1776323152483",
+      "target": "node-1776323181755",
+      "sourceHandle": "bottom-source",
+      "targetHandle": "left-target",
+      "type": "straight",
+      "data": {
+        "edgeStyle": "solid",
+        "lineType": "straight",
+        "sourceHandlePosition": "bottom",
+        "targetHandlePosition": "left"
+      }
+    }
+  ],
+  "buildIds": [
+    "19334178-5449-4f85-a11f-df0c5d9c605f",
+    "335c3b3c-7b4b-4e02-bd4f-92ce5f79b1c9",
+    "8c418a33-56e3-4e87-bbe2-a825fd44286f"
+  ]
+}
