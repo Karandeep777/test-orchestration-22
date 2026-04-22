@@ -1,0 +1,16 @@
+{
+  "name": "Update Knowledge Base Endpoint - Success",
+  "description": "Validates that the /admin/update_kb endpoint successfully updates the knowledge base when provided with a valid document.",
+  "test_type": "functional",
+  "input": "POST /admin/update_kb with a valid policy document JSON.",
+  "output": "A JSON response with success=true and a confirmation message.",
+  "success_criteria": [
+    "HTTP status code is 200",
+    "response.success is True",
+    "response.message contains 'Knowledge base updated'"
+  ],
+  "error_scenarios": [
+    "HR Admin API unavailable",
+    "Invalid document format"
+  ]
+}
