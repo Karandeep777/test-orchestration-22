@@ -1,0 +1,19 @@
+{
+  "name": "Ask Policy Question Endpoint - Sensitive Topic Escalation",
+  "description": "Checks that the /ask endpoint escalates questions on sensitive topics (e.g., harassment) and returns the correct escalation response.",
+  "test_type": "functional",
+  "input": "POST /ask with a UserQuery JSON containing a question about harassment.",
+  "output": "A FormattedResponse JSON with success=false, error_code indicating escalation, and escalation_ticket_id present.",
+  "success_criteria": [
+    "HTTP status code is 200",
+    "response.success is False",
+    "response.error_code is not None",
+    "response.error_type is 'ESCALATION_REQUIRED'",
+    "response.escalation_ticket_id is not None",
+    "response.answer contains 'connect you to an HR specialist'"
+  ],
+  "error_scenarios": [
+    "Escalation API unavailable",
+    "Logging API unavailable"
+  ]
+}
