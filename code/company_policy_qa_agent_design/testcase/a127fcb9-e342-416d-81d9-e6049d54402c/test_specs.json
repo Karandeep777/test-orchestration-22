@@ -1,0 +1,18 @@
+{
+  "name": "Ask Policy Question Endpoint - No Relevant Policy Found",
+  "description": "Checks that the /ask endpoint returns a proper error response when no relevant policy information is found for the query.",
+  "test_type": "functional",
+  "input": "POST /ask with a valid UserQuery JSON containing a query unrelated to any policy (e.g., 'What is the weather today?').",
+  "output": "A FormattedResponse JSON with success=false, error_code='NO_ANSWER_FOUND', and fixing_tips present.",
+  "success_criteria": [
+    "HTTP status code is 200",
+    "response.success is False",
+    "response.error_code is 'NO_ANSWER_FOUND'",
+    "response.error_message contains 'No relevant policy information found'",
+    "response.fixing_tips is not None"
+  ],
+  "error_scenarios": [
+    "Azure Search API returns empty result",
+    "Logging API unavailable"
+  ]
+}
