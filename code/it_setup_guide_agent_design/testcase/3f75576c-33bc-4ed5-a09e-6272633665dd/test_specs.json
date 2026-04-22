@@ -1,0 +1,14 @@
+{
+  "name": "Functional - KnowledgeRetriever VPN Query",
+  "description": "Checks that KnowledgeRetriever returns the correct canned answer for VPN-related queries.",
+  "test_type": "functional",
+  "input": "A user_query string containing the word 'vpn'.",
+  "output": "A string with VPN setup instructions.",
+  "success_criteria": [
+    "Output contains instructions for VPN setup",
+    "Output is not the default fallback message"
+  ],
+  "error_scenarios": [
+    "Returns fallback message if 'vpn' is not detected"
+  ]
+}
