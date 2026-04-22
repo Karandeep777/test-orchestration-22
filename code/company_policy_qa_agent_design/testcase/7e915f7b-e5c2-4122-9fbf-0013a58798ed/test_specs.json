@@ -1,0 +1,17 @@
+{
+  "name": "Malformed JSON Handling Middleware",
+  "description": "Ensures that the middleware catches malformed JSON and returns a helpful error message.",
+  "test_type": "functional",
+  "input": "POST /ask with a malformed JSON body (e.g., missing closing brace).",
+  "output": "A JSON response with success=false, error_code='MALFORMED_JSON', and fixing_tips present.",
+  "success_criteria": [
+    "HTTP status code is 400",
+    "response.success is False",
+    "response.error_code is 'MALFORMED_JSON'",
+    "response.error_type is 'JSONDecodeError'",
+    "response.fixing_tips contains 'Ensure your JSON is properly formatted'"
+  ],
+  "error_scenarios": [
+    "Malformed JSON in request"
+  ]
+}
