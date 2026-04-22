@@ -1,0 +1,11 @@
+[
+  {
+    "id": "test_1",
+    "name": "Functional - KnowledgeRetriever VPN Query",
+    "description": "Test: Functional - KnowledgeRetriever VPN Query",
+    "type": "functional",
+    "status": "passed",
+    "duration": 0.0,
+    "error": null
+  }
+]
