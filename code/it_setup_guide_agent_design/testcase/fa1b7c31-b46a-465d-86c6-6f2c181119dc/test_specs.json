@@ -1,0 +1,15 @@
+{
+  "name": "Create Ticket - Functional Consent Enforcement",
+  "description": "Ensures that the /ticket endpoint only creates a ticket when consent is given and returns appropriate responses.",
+  "test_type": "functional",
+  "input": "A valid TicketRequest payload with consent True and False.",
+  "output": "TicketResponse if consent is True, ErrorResponse if consent is False.",
+  "success_criteria": [
+    "Returns TicketResponse with ticket_id when consent is True",
+    "Returns ErrorResponse with error_type 'TICKET_CREATION_FAIL' or 'TICKET_NOT_CREATED_NO_CONSENT' when consent is False"
+  ],
+  "error_scenarios": [
+    "ErrorResponse if required fields are missing or invalid",
+    "ErrorResponse if ticket creation fails due to external error"
+  ]
+}
