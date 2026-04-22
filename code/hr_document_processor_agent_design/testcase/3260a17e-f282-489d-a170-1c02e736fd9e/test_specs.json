@@ -1,0 +1,16 @@
+{
+  "name": "Functional - Duplicate Document Detection",
+  "description": "Ensures that uploading the same document twice for the same employee triggers duplicate detection and returns an error.",
+  "test_type": "functional",
+  "input": "Two consecutive uploads of the same document_text for employee_id='E12345' via /upload endpoint.",
+  "output": "First upload returns success, second returns error with ERR_DUPLICATE_DOCUMENT.",
+  "success_criteria": [
+    "First response.success is True",
+    "Second response.success is False",
+    "Second response.errors[0].error_code == 'ERR_DUPLICATE_DOCUMENT'"
+  ],
+  "error_scenarios": [
+    "Duplicate detection cache fails",
+    "Hashing function fails"
+  ]
+}
