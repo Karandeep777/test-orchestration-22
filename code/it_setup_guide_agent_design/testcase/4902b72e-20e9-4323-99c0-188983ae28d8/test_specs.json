@@ -1,0 +1,16 @@
+{
+  "name": "Integration - SecurityManager JWT Authentication",
+  "description": "Verifies that SecurityManager.authenticate_user correctly authenticates valid and invalid JWT tokens.",
+  "test_type": "integration",
+  "input": "A valid JWT token and an invalid/expired JWT token.",
+  "output": "True for valid token, False for invalid/expired token.",
+  "success_criteria": [
+    "Returns True for valid token",
+    "Returns False for expired or invalid token",
+    "Logs authentication events"
+  ],
+  "error_scenarios": [
+    "False returned for malformed tokens",
+    "False returned for tokens with wrong secret"
+  ]
+}
