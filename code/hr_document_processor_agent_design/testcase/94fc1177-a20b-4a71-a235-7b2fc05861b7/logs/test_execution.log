@@ -1,0 +1,78 @@
+=== PYTEST EXECUTION LOG ===
+
+Exit Code: 1
+
+STDOUT:
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /tmp/test_venv_exec_8du42a3d/venv/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.15', 'Platform': 'Linux-5.15.0-1102-azure-x86_64-with-glibc2.41', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'langsmith': '0.7.32', 'Faker': '37.12.0', 'asyncio': '1.3.0', 'anyio': '4.13.0', 'mock': '3.15.1', 'json-report': '1.5.0', 'metadata': '3.1.1'}}
+rootdir: /tmp/test_venv_exec_8du42a3d
+configfile: pytest.ini
+plugins: langsmith-0.7.32, Faker-37.12.0, asyncio-1.3.0, anyio-4.13.0, mock-3.15.1, json-report-1.5.0, metadata-3.1.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+test_agent.py::test_integration_end_to_end_document_processing_with_missing_fields FAILED [100%]
+
+=================================== FAILURES ===================================
+_____ test_integration_end_to_end_document_processing_with_missing_fields ______
+
+sample_document_text_missing_fields = 'This is a contract for John Doe. Position: Software Engineer.'
+expected_missing_fields = ['employee_id', 'start_date']
+mock_field_extractor = <MagicMock id='139939429712848'>
+mock_upload_response_class = (<class 'test_agent.mock_upload_response_class.<locals>.MockUploadResponse'>, <class 'test_agent.mock_upload_response_class.<locals>.MockError'>)
+
+    def test_integration_end_to_end_document_processing_with_missing_fields(
+        sample_document_text_missing_fields,
+        expected_missing_fields,
+        mock_field_extractor,
+        mock_upload_response_class
+    ):
+        """
+        Integration test: End-to-End Document Processing with Missing Fields.
+        Tests that when a document is missing required HR fields ('employee_id', 'start_date'),
+        the workflow flags the missing fields and includes them in the response.
+        """
+        # Patch the field extraction function used in the workflow
+        # Patch the UploadResponse and DocumentError classes if needed
+        # Assume process_document_upload is the main entry point
+    
+        # Import inside test to avoid import errors if not present in environment
+        with patch('hr_agent.document_processor.extract_fields', mock_field_extractor):
+            MockUploadResponse, MockError = mock_upload_response_class
+    
+            # Patch UploadResponse to use our mock class
+            with patch('hr_agent.document_processor.UploadResponse', MockUploadResponse), \
+                 patch('hr_agent.document_processor.DocumentError', MockError):
+    
+                # Simulate the process_document_upload function
+                # The actual function signature may differ; adjust as needed
+                from hr_agent.document_processor import process_document_upload
+    
+                response = process_document_upload(document_text=sample_document_text_missing_fields)
+    
+                # Assertions per success_criteria
+>               assert response.success is True, "Response should indicate success"
+                       ^^^^^^^^^^^^^^^^
+E               AttributeError: 'function' object has no attribute 'success'
+
+test_agent.py:84: AttributeError
+=============================== warnings summary ===============================
+test_agent.py::test_integration_end_to_end_document_processing_with_missing_fields
+  /tmp/test_venv_exec_8du42a3d/agent.py:86: PydanticDeprecatedSince20: Pydantic V1 style `@root_validator` validators are deprecated. You should migrate to Pydantic V2 style `@model_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    @root_validator
+
+test_agent.py::test_integration_end_to_end_document_processing_with_missing_fields
+  /tmp/test_venv_exec_8du42a3d/venv/lib/python3.11/site-packages/pydantic/deprecated/class_validators.py:234: PydanticDeprecatedSince20: Pydantic V1 style `@root_validator` validators are deprecated. You should migrate to Pydantic V2 style `@model_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    return root_validator()(*__args)  # type: ignore
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+--------------------------------- JSON report ----------------------------------
+report saved to: /tmp/test_venv_exec_8du42a3d/pytest_report.json
+=========================== short test summary info ============================
+FAILED test_agent.py::test_integration_end_to_end_document_processing_with_missing_fields
+======================== 1 failed, 2 warnings in 3.69s =========================
+
+
+STDERR:
