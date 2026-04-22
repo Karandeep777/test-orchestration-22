@@ -1,0 +1,15 @@
+{
+  "name": "Performance - Onboarding Session Throughput",
+  "description": "Evaluates the system's ability to handle multiple onboarding sessions in parallel.",
+  "test_type": "performance",
+  "input": "Simultaneous /start and /step requests for 50+ unique employee_ids.",
+  "output": "Success/failure rates and response times for all sessions.",
+  "success_criteria": [
+    "At least 95% of sessions complete without error",
+    "No significant degradation in response time as concurrency increases"
+  ],
+  "error_scenarios": [
+    "Session data loss or corruption under high load",
+    "Increased error rates or timeouts"
+  ]
+}
