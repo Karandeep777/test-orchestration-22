@@ -1,0 +1,180 @@
+=== PYTEST EXECUTION LOG ===
+
+Exit Code: 1
+
+STDOUT:
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0 -- /tmp/test_venv_exec_55d7sy4k/venv/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.15', 'Platform': 'Linux-5.15.0-1102-azure-x86_64-with-glibc2.41', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'asyncio': '1.3.0', 'anyio': '4.13.0', 'json-report': '1.5.0', 'metadata': '3.1.1'}}
+rootdir: /tmp/test_venv_exec_55d7sy4k
+configfile: pytest.ini
+plugins: asyncio-1.3.0, anyio-4.13.0, json-report-1.5.0, metadata-3.1.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 6 items
+
+test_agent.py::test_start_onboarding_functional_happy_path FAILED        [ 16%]
+test_agent.py::test_start_onboarding_validation_error[payload0-employee_id] FAILED [ 33%]
+test_agent.py::test_start_onboarding_validation_error[payload1-role] FAILED [ 50%]
+test_agent.py::test_start_onboarding_validation_error[payload2-department] FAILED [ 66%]
+test_agent.py::test_start_onboarding_validation_error[payload3-operating_system] FAILED [ 83%]
+test_agent.py::test_start_onboarding_internal_error FAILED               [100%]
+
+=================================== FAILURES ===================================
+_________________ test_start_onboarding_functional_happy_path __________________
+
+client = <starlette.testclient.TestClient object at 0x7f98b5c0ebd0>
+valid_user_context = {'department': 'Engineering', 'employee_id': 'EMP12345', 'operating_system': 'Windows', 'role': 'Software Engineer'}
+
+    def test_start_onboarding_functional_happy_path(client, valid_user_context):
+        """
+        Functional test: Validates that the /start endpoint successfully initiates an onboarding session
+        and returns the first onboarding step.
+        """
+        # Patch any external dependencies (e.g., LLM, DB, etc.) used in the onboarding logic.
+        # Here, we patch the function that generates the onboarding step.
+        # Adjust the patch target to your actual implementation.
+        with patch("app.routers.onboarding.generate_first_step", side_effect=mock_step_response):
+            response = client.post("/start", json=valid_user_context)
+            assert response.status_code == 200, "Expected HTTP 200 for valid onboarding start"
+            data = response.json()
+            # Validate response structure
+            assert isinstance(data, dict), "Response should be a JSON object"
+>           assert "step" in data and isinstance(data["step"], str) and data["step"], "step field must be a non-empty string"
+E           AssertionError: step field must be a non-empty string
+E           assert ('step' in {'department': 'Engineering', 'employee_id': 'EMP12345', 'operating_system': 'Windows', 'role': 'Software Engineer', ...})
+
+test_agent.py:60: AssertionError
+_________ test_start_onboarding_validation_error[payload0-employee_id] _________
+
+client = <starlette.testclient.TestClient object at 0x7f98b5c0dc10>
+payload = {}, missing_field = 'employee_id'
+
+    @pytest.mark.parametrize(
+        "payload,missing_field",
+        [
+            ({}, "employee_id"),
+            ({"employee_id": "EMP12345"}, "role"),
+            ({"employee_id": "EMP12345", "role": "Software Engineer"}, "department"),
+            ({"employee_id": "EMP12345", "role": "Software Engineer", "department": "Engineering"}, "operating_system"),
+        ]
+    )
+    def test_start_onboarding_validation_error(client, payload, missing_field):
+        """
+        Functional test: Validates that /start returns 422 ValidationError if required fields are missing.
+        """
+        response = client.post("/start", json=payload)
+>       assert response.status_code == 422, f"Expected 422 ValidationError when '{missing_field}' is missing"
+E       AssertionError: Expected 422 ValidationError when 'employee_id' is missing
+E       assert 200 == 422
+E        +  where 200 = <Response [200 OK]>.status_code
+
+test_agent.py:83: AssertionError
+____________ test_start_onboarding_validation_error[payload1-role] _____________
+
+client = <starlette.testclient.TestClient object at 0x7f98b5c25ed0>
+payload = {'employee_id': 'EMP12345'}, missing_field = 'role'
+
+    @pytest.mark.parametrize(
+        "payload,missing_field",
+        [
+            ({}, "employee_id"),
+            ({"employee_id": "EMP12345"}, "role"),
+            ({"employee_id": "EMP12345", "role": "Software Engineer"}, "department"),
+            ({"employee_id": "EMP12345", "role": "Software Engineer", "department": "Engineering"}, "operating_system"),
+        ]
+    )
+    def test_start_onboarding_validation_error(client, payload, missing_field):
+        """
+        Functional test: Validates that /start returns 422 ValidationError if required fields are missing.
+        """
+        response = client.post("/start", json=payload)
+>       assert response.status_code == 422, f"Expected 422 ValidationError when '{missing_field}' is missing"
+E       AssertionError: Expected 422 ValidationError when 'role' is missing
+E       assert 200 == 422
+E        +  where 200 = <Response [200 OK]>.status_code
+
+test_agent.py:83: AssertionError
+_________ test_start_onboarding_validation_error[payload2-department] __________
+
+client = <starlette.testclient.TestClient object at 0x7f98b5c25e10>
+payload = {'employee_id': 'EMP12345', 'role': 'Software Engineer'}
+missing_field = 'department'
+
+    @pytest.mark.parametrize(
+        "payload,missing_field",
+        [
+            ({}, "employee_id"),
+            ({"employee_id": "EMP12345"}, "role"),
+            ({"employee_id": "EMP12345", "role": "Software Engineer"}, "department"),
+            ({"employee_id": "EMP12345", "role": "Software Engineer", "department": "Engineering"}, "operating_system"),
+        ]
+    )
+    def test_start_onboarding_validation_error(client, payload, missing_field):
+        """
+        Functional test: Validates that /start returns 422 ValidationError if required fields are missing.
+        """
+        response = client.post("/start", json=payload)
+>       assert response.status_code == 422, f"Expected 422 ValidationError when '{missing_field}' is missing"
+E       AssertionError: Expected 422 ValidationError when 'department' is missing
+E       assert 200 == 422
+E        +  where 200 = <Response [200 OK]>.status_code
+
+test_agent.py:83: AssertionError
+______ test_start_onboarding_validation_error[payload3-operating_system] _______
+
+client = <starlette.testclient.TestClient object at 0x7f98b5c2ebd0>
+payload = {'department': 'Engineering', 'employee_id': 'EMP12345', 'role': 'Software Engineer'}
+missing_field = 'operating_system'
+
+    @pytest.mark.parametrize(
+        "payload,missing_field",
+        [
+            ({}, "employee_id"),
+            ({"employee_id": "EMP12345"}, "role"),
+            ({"employee_id": "EMP12345", "role": "Software Engineer"}, "department"),
+            ({"employee_id": "EMP12345", "role": "Software Engineer", "department": "Engineering"}, "operating_system"),
+        ]
+    )
+    def test_start_onboarding_validation_error(client, payload, missing_field):
+        """
+        Functional test: Validates that /start returns 422 ValidationError if required fields are missing.
+        """
+        response = client.post("/start", json=payload)
+>       assert response.status_code == 422, f"Expected 422 ValidationError when '{missing_field}' is missing"
+E       AssertionError: Expected 422 ValidationError when 'operating_system' is missing
+E       assert 200 == 422
+E        +  where 200 = <Response [200 OK]>.status_code
+
+test_agent.py:83: AssertionError
+_____________________ test_start_onboarding_internal_error _____________________
+
+client = <starlette.testclient.TestClient object at 0x7f98b5c73990>
+valid_user_context = {'department': 'Engineering', 'employee_id': 'EMP12345', 'operating_system': 'Windows', 'role': 'Software Engineer'}
+
+    def test_start_onboarding_internal_error(client, valid_user_context):
+        """
+        Functional test: Validates that /start returns HTTP 500 if an internal error occurs.
+        """
+        # Patch the onboarding step generator to raise an exception
+        with patch("app.routers.onboarding.generate_first_step", side_effect=Exception("Internal error")):
+            response = client.post("/start", json=valid_user_context)
+>           assert response.status_code == 500, "Expected HTTP 500 on internal error"
+E           AssertionError: Expected HTTP 500 on internal error
+E           assert 200 == 500
+E            +  where 200 = <Response [200 OK]>.status_code
+
+test_agent.py:92: AssertionError
+--------------------------------- JSON report ----------------------------------
+report saved to: /tmp/test_venv_exec_55d7sy4k/pytest_report.json
+=========================== short test summary info ============================
+FAILED test_agent.py::test_start_onboarding_functional_happy_path - Assertion...
+FAILED test_agent.py::test_start_onboarding_validation_error[payload0-employee_id]
+FAILED test_agent.py::test_start_onboarding_validation_error[payload1-role]
+FAILED test_agent.py::test_start_onboarding_validation_error[payload2-department]
+FAILED test_agent.py::test_start_onboarding_validation_error[payload3-operating_system]
+FAILED test_agent.py::test_start_onboarding_internal_error - AssertionError: ...
+============================== 6 failed in 0.44s ===============================
+
+
+STDERR:
