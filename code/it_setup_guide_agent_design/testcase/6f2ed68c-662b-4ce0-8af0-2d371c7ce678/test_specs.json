@@ -1,0 +1,18 @@
+{
+  "name": "Start Onboarding - Functional Happy Path",
+  "description": "Validates that the /start endpoint successfully initiates an onboarding session and returns the first onboarding step.",
+  "test_type": "functional",
+  "input": "A valid UserContext payload with employee_id, role, department, and operating_system.",
+  "output": "A StepResponse object containing the first onboarding step, estimated time, and next_action.",
+  "success_criteria": [
+    "HTTP status code is 200",
+    "Response is a StepResponse",
+    "step field is a non-empty string",
+    "estimated_time is present",
+    "next_action contains onboarding instructions"
+  ],
+  "error_scenarios": [
+    "ValidationError if required fields are missing or invalid",
+    "HTTP 500 if internal error occurs"
+  ]
+}
