@@ -1,0 +1,16 @@
+{
+  "name": "Integration - Azure AI Search Query",
+  "description": "Validates that the /azure-search endpoint integrates with Azure AI Search and returns results for a valid query.",
+  "test_type": "integration",
+  "input": "An AzureSearchRequest with a non-empty query string and valid API key.",
+  "output": "A JSON AzureSearchResponse with success=True and results containing search hits.",
+  "success_criteria": [
+    "HTTP status code is 200",
+    "response.success is True",
+    "response.results is not None"
+  ],
+  "error_scenarios": [
+    "Azure AI Search endpoint returns error",
+    "API key is missing or invalid"
+  ]
+}
