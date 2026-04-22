@@ -1,0 +1,15 @@
+{
+  "name": "Performance - Step Processing Latency",
+  "description": "Measures the average response time of the /step endpoint under normal load.",
+  "test_type": "performance",
+  "input": "Multiple concurrent /step requests with valid StepInput for active sessions.",
+  "output": "Response times for each request.",
+  "success_criteria": [
+    "Average response time is below 2 seconds",
+    "No timeouts or server errors under expected load"
+  ],
+  "error_scenarios": [
+    "Timeouts if LLM or knowledge base is slow",
+    "HTTP 500 if server is overloaded"
+  ]
+}
