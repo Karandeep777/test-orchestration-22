@@ -1,0 +1,18 @@
+{
+  "name": "Integration - End-to-End Document Processing with Missing Fields",
+  "description": "Tests the full workflow for a document missing required HR fields, ensuring missing fields are flagged and included in the response.",
+  "test_type": "integration",
+  "input": "A valid document upload with document_text missing 'employee_id' and 'start_date'.",
+  "output": "UploadResponse with success=True, errors indicating missing fields, and flagged_fields containing the missing field names.",
+  "success_criteria": [
+    "response.success is True",
+    "response.errors is not None",
+    "response.errors[0].error_code == 'ERR_MISSING_FIELD'",
+    "response.errors[0].message contains 'employee_id' and 'start_date'",
+    "response.flagged_fields includes missing fields"
+  ],
+  "error_scenarios": [
+    "Field extraction returns incorrect fields",
+    "Missing fields are not detected"
+  ]
+}
