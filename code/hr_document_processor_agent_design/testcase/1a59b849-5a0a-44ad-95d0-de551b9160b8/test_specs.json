@@ -1,0 +1,20 @@
+{
+  "name": "Functional - Successful Single Document Upload and Processing",
+  "description": "Validates that a user with the 'user' role can successfully upload a supported document (e.g., PDF), have its text extracted, classified, fields extracted, and receive a successful UploadResponse.",
+  "test_type": "functional",
+  "input": "A valid PDF file containing a recognizable HR document, user_role='user', employee_id='E12345'.",
+  "output": "A JSON response with success=True, document_type set, confidence >= 0.85, extracted_fields present, and no errors.",
+  "success_criteria": [
+    "HTTP status code is 200",
+    "response.success is True",
+    "response.document_type is not None",
+    "response.confidence >= 0.85",
+    "response.extracted_fields is not None",
+    "response.errors is None"
+  ],
+  "error_scenarios": [
+    "Document text extraction fails",
+    "LLM classification fails",
+    "Field extraction fails"
+  ]
+}
