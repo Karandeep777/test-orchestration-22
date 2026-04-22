@@ -1,0 +1,16 @@
+{
+  "name": "Process Step - Integration with LLM and Knowledge Base",
+  "description": "Tests the /step endpoint for both step completion and issue reporting, including LLM and knowledge base integration.",
+  "test_type": "integration",
+  "input": "A valid StepInput payload for an active session, with user_input simulating both 'YES' and an issue description.",
+  "output": "StepResponse if completed, ErrorResponse with knowledge base answer if issue.",
+  "success_criteria": [
+    "Returns StepResponse when user_input is 'YES'",
+    "Returns ErrorResponse with error_type 'STEP_ISSUE' and includes knowledge base answer when user_input describes an issue",
+    "Session progress is updated accordingly"
+  ],
+  "error_scenarios": [
+    "ErrorResponse with error_type 'SESSION_NOT_FOUND' if session does not exist",
+    "ErrorResponse with error_type 'ACCESS_DENIED' if user_input contains password"
+  ]
+}
