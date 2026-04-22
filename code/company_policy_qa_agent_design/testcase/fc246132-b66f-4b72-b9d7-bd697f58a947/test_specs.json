@@ -1,0 +1,18 @@
+{
+  "name": "Update Knowledge Base Endpoint - Failure",
+  "description": "Ensures that the /admin/update_kb endpoint returns an appropriate error response when the knowledge base update fails.",
+  "test_type": "functional",
+  "input": "POST /admin/update_kb with an invalid or malformed document JSON.",
+  "output": "A JSON response with success=false, error_code='KB_UPDATE_FAILED', and fixing_tips present.",
+  "success_criteria": [
+    "HTTP status code is 500",
+    "response.success is False",
+    "response.error_code is 'KB_UPDATE_FAILED'",
+    "response.error_type is 'UpdateError'",
+    "response.fixing_tips is not None"
+  ],
+  "error_scenarios": [
+    "HR Admin API returns error",
+    "Malformed JSON"
+  ]
+}
