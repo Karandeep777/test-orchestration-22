@@ -1,0 +1,17 @@
+{
+  "name": "Functional - Upload Unsupported File Format",
+  "description": "Ensures that uploading a file with an unsupported extension (e.g., .exe) returns an appropriate error response.",
+  "test_type": "functional",
+  "input": "A file named 'malware.exe' uploaded via /upload endpoint with user_role='user'.",
+  "output": "A JSON error response indicating unsupported file format.",
+  "success_criteria": [
+    "HTTP status code is 400",
+    "response.success is False",
+    "response.error_type == 'UnsupportedFormat'",
+    "response.error_code == 'ERR_UNSUPPORTED_FORMAT'"
+  ],
+  "error_scenarios": [
+    "File extension detection fails",
+    "Error response is not properly formatted"
+  ]
+}
